@@ -25,6 +25,10 @@ export default function Home() {
           left: "0",
           width: "100vw",
           height: "100vh",
+          overflow: " scroll",
+          display: "flex",
+          alignItems: "center",
+
           // display: "grid",
           // gridAutoColumns: "1fr",
           // gridAutoFlow: "column",
