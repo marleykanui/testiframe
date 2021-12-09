@@ -14,3 +14,13 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.prompt-box-8w {
+  background-color: white !important;
+}
+.prompt-button-8w {
+  background-color: grey !important;
+}
+.button-primary-8w {
+  background-color: #339966 !important;
+}
