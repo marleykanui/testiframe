@@ -76,10 +76,7 @@ export default function Home() {
         return;
       }
       controls.style.opacity = 0;
-
       const styleCleanup = setTimeout(() => {
-        controls.classList.remove("fade-in");
-        controls.classList.add("fade-out");
         startBtn.style.display = "none";
         poweredByLogo.style.display = "none";
         controls.style.display = "block";
@@ -93,7 +90,6 @@ export default function Home() {
       }, 900);
     });
     iframe.setAttribute("src", INNER_FRAME_URL);
-
     document
       .getElementById(EXPAND_BTN_ID)
       .classList.toggle(FULLSCREEN_STOP_BTN_CLASS);
