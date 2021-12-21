@@ -35,28 +35,10 @@ export default function Home() {
   };
 
   useEffect(() => {
-    // const onLoad = () => {
-    //   createObserver();
-    // };
-    // window.addEventListener("load", onLoad, false);
-    let cameraActive;
-    const handleIntersect = (entries, observer) => {
-      entries.forEach((entry) => {
-        if (cameraActive && !entry.isIntersecting) {
-          stopAR();
-          cameraActive = false;
-        }
-      });
+    const onLoad = () => {
+      createObserver();
     };
-    window.addEventListener("message", (event) => {
-      if (event.data === "acceptedCamera") {
-        cameraActive = true;
-      }
-    });
-    const options = { threshold: 0.2 };
-    new IntersectionObserver(handleIntersect, options).observe(
-      document.getElementById(IFRAME_ID)
-    );
+    window.addEventListener("load", onLoad, false);
     document
       .getElementById(EXPAND_BTN_ID)
       .classList.toggle(FULLSCREEN_STOP_BTN_CLASS);
@@ -94,7 +76,10 @@ export default function Home() {
         return;
       }
       controls.style.opacity = 0;
+
       const styleCleanup = setTimeout(() => {
+        controls.classList.remove("fade-in");
+        controls.classList.add("fade-out");
         startBtn.style.display = "none";
         poweredByLogo.style.display = "none";
         controls.style.display = "block";
@@ -108,6 +93,7 @@ export default function Home() {
       }, 900);
     });
     iframe.setAttribute("src", INNER_FRAME_URL);
+
     document
       .getElementById(EXPAND_BTN_ID)
       .classList.toggle(FULLSCREEN_STOP_BTN_CLASS);
@@ -116,7 +102,26 @@ export default function Home() {
       .classList.toggle(FULLSCREEN_STOP_BTN_CLASS);
   };
 
-  const stopAR = () => {};
+  const stopAR = () => {
+    // deregisters the XRIFrame
+    window.XRIFrame.deregisterXRIFrame();
+    const controls = document.getElementById(CONTROLS_ID);
+    controls.style.opacity = 1;
+    controls.classList.remove("fade-in");
+    controls.classList.add("fade-out");
+    const startBtn = document.getElementById(START_BTN_ID);
+    startBtn.classList.remove("fade-out");
+    startBtn.classList.add("fade-in");
+    startBtn.style.display = "block";
+    document.getElementById(IFRAME_ID).setAttribute("src", "");
+    const styleCleanup = setTimeout(() => {
+      startBtn.style.opacity = 1;
+      startBtn.classList.remove("fade-in");
+    }, 300);
+    setTimeout(() => {
+      clearTimeout(styleCleanup);
+    }, 900);
+  };
 
   return (
     <div className="content">
