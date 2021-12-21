@@ -12,6 +12,7 @@ export default function Home() {
   const FULLSCREEN_CONTROLS_CLASS = "fullscreen-iframeControls";
   const FULLSCREEN_EXPAND_BTN_CLASS = "fullscreen-btn";
   const FULLSCREEN_STOP_BTN_CLASS = "hidden";
+  const FULLSCREEN_SHOW_BTN_CLASS = "shown";
 
   const createObserver = () => {
     let cameraActive;
@@ -39,12 +40,6 @@ export default function Home() {
       createObserver();
     };
     window.addEventListener("load", onLoad, false);
-    document
-      .getElementById(EXPAND_BTN_ID)
-      .classList.toggle(FULLSCREEN_STOP_BTN_CLASS);
-    document
-      .getElementById(STOP_BTN_ID)
-      .classList.toggle(FULLSCREEN_STOP_BTN_CLASS);
   }, []);
 
   // Handles fullscreen button behavior
@@ -90,21 +85,15 @@ export default function Home() {
       }, 900);
     });
     iframe.setAttribute("src", INNER_FRAME_URL);
-    document
-      .getElementById(EXPAND_BTN_ID)
-      .classList.toggle(FULLSCREEN_STOP_BTN_CLASS);
-    document
-      .getElementById(STOP_BTN_ID)
-      .classList.toggle(FULLSCREEN_STOP_BTN_CLASS);
   };
 
   const stopAR = () => {
     // deregisters the XRIFrame
     window.XRIFrame.deregisterXRIFrame();
-    const controls = document.getElementById(CONTROLS_ID);
-    controls.style.opacity = 1;
-    controls.classList.remove("fade-in");
-    controls.classList.add("fade-out");
+    // const controls = document.getElementById(CONTROLS_ID);
+    // controls.style.opacity = 1;
+    // controls.classList.remove("fade-in");
+    // controls.classList.add("fade-out");
     const startBtn = document.getElementById(START_BTN_ID);
     startBtn.classList.remove("fade-out");
     startBtn.classList.add("fade-in");
