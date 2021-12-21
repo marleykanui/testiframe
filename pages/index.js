@@ -35,10 +35,28 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const onLoad = () => {
-      createObserver();
+    // const onLoad = () => {
+    //   createObserver();
+    // };
+    // window.addEventListener("load", onLoad, false);
+    let cameraActive;
+    const handleIntersect = (entries, observer) => {
+      entries.forEach((entry) => {
+        if (cameraActive && !entry.isIntersecting) {
+          stopAR();
+          cameraActive = false;
+        }
+      });
     };
-    window.addEventListener("load", onLoad, false);
+    window.addEventListener("message", (event) => {
+      if (event.data === "acceptedCamera") {
+        cameraActive = true;
+      }
+    });
+    const options = { threshold: 0.2 };
+    new IntersectionObserver(handleIntersect, options).observe(
+      document.getElementById(IFRAME_ID)
+    );
     document
       .getElementById(EXPAND_BTN_ID)
       .classList.toggle(FULLSCREEN_STOP_BTN_CLASS);
