@@ -43,7 +43,7 @@ export default function Home() {
         </div>
         <iframe
           id="my-iframe"
-          style={{ width: "25rem", height: "15rem" }}
+          style={{ width: "40rem", height: "20rem" }}
           allow="camera;microphone;gyroscope;accelerometer;"
           src="https://d2odbxwfe3i8mn.cloudfront.net/"
         ></iframe>
