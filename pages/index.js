@@ -5,7 +5,7 @@ export default function Home() {
   const IFRAME_ID = "my-iframe";
   const CONTROLS_ID = "iframeControls";
   const START_BTN_ID = "startBtn";
-  const INNER_FRAME_URL = "https://192.168.1.247:8080";
+  const INNER_FRAME_URL = "https://d2upca0600ogrl.cloudfront.net/";
   const STOP_BTN_ID = "stopBtn";
   const EXPAND_BTN_ID = "expandBtn";
   const FULLSCREEN_IFRAME_CLASS = "fullscreen-iframe";
