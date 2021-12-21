@@ -26,15 +26,11 @@ export default function Home() {
           width: "100vw",
           height: "100vh",
           overflow: " scroll",
-          display: "flex",
-          alignItems: "center",
-
-          // display: "grid",
-          // gridAutoColumns: "1fr",
-          // gridAutoFlow: "column",
+          // display: "flex",
+          // alignItems: "center",
         }}
       >
-        <div>
+        <div style={{ float: "right" }}>
           Commodo laboris veniam duis id aute duis esse fugiat incididunt mollit
           nostrud. Amet aliquip ipsum excepteur occaecat. Nulla esse nulla
           nostrud incididunt. Dolore do culpa esse in sunt aute proident sit.
@@ -47,11 +43,11 @@ export default function Home() {
         </div>
         <iframe
           id="my-iframe"
-          style={{ width: "90%", height: "90%" }}
+          style={{ width: "80%", height: "80%" }}
           allow="camera;microphone;gyroscope;accelerometer;"
           src="https://d2odbxwfe3i8mn.cloudfront.net/"
         ></iframe>
-        <div>
+        <div style={{ float: "left" }}>
           Magna ut aute mollit non exercitation exercitation ad. Veniam anim sit
           officia reprehenderit occaecat non enim. Elit duis est occaecat labore
           amet aute. Reprehenderit nostrud dolore sunt officia et est occaecat.
