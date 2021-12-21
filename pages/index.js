@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
 
 export default function Home() {
   const IFRAME_ID = "my-iframe";
@@ -9,17 +8,10 @@ export default function Home() {
   const INNER_FRAME_URL = "https://d2odbxwfe3i8mn.cloudfront.net/";
   const STOP_BTN_ID = "stopBtn";
   const EXPAND_BTN_ID = "expandBtn";
-  const LOGO_ID = "poweredByLogo";
   const FULLSCREEN_IFRAME_CLASS = "fullscreen-iframe";
   const FULLSCREEN_CONTROLS_CLASS = "fullscreen-iframeControls";
   const FULLSCREEN_EXPAND_BTN_CLASS = "fullscreen-btn";
   const FULLSCREEN_STOP_BTN_CLASS = "hidden";
-  // useEffect(() => {
-  //   const onLoad = () => {
-  //     window.XRIFrame.registerXRIFrame(IFRAME_ID);
-  //   };
-  //   window.addEventListener("load", onLoad, false);
-  // }, []);
 
   const createObserver = () => {
     let cameraActive;
@@ -43,10 +35,33 @@ export default function Home() {
   };
 
   useEffect(() => {
-    createObserver();
+    const onLoad = () => {
+      createObserver();
+    };
+    window.addEventListener("load", onLoad, false);
+    document
+      .getElementById(EXPAND_BTN_ID)
+      .classList.toggle(FULLSCREEN_STOP_BTN_CLASS);
+    document
+      .getElementById(STOP_BTN_ID)
+      .classList.toggle(FULLSCREEN_STOP_BTN_CLASS);
   }, []);
 
-  const toggleFullscreen = () => {};
+  // Handles fullscreen button behavior
+  const toggleFullscreen = () => {
+    document
+      .getElementById(IFRAME_ID)
+      .classList.toggle(FULLSCREEN_IFRAME_CLASS);
+    document
+      .getElementById(CONTROLS_ID)
+      .classList.toggle(FULLSCREEN_CONTROLS_CLASS);
+    document
+      .getElementById(EXPAND_BTN_ID)
+      .classList.toggle(FULLSCREEN_EXPAND_BTN_CLASS);
+    document
+      .getElementById(STOP_BTN_ID)
+      .classList.toggle(FULLSCREEN_STOP_BTN_CLASS);
+  };
 
   const startAR = () => {
     // registers the XRIFrame by iframe ID
@@ -75,14 +90,24 @@ export default function Home() {
       }, 900);
     });
     iframe.setAttribute("src", INNER_FRAME_URL);
+    document
+      .getElementById(EXPAND_BTN_ID)
+      .classList.toggle(FULLSCREEN_STOP_BTN_CLASS);
+    document
+      .getElementById(STOP_BTN_ID)
+      .classList.toggle(FULLSCREEN_STOP_BTN_CLASS);
   };
 
   const stopAR = () => {};
 
   return (
-    <div className={styles.container}>
+    <div className="content">
       <Head>
         <script src="//cdn.8thwall.com/web/iframe/iframe.js"></script>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no"
+        ></meta>
       </Head>
       <div className="content">
         <h1>File Size Visualizer - 4H</h1>
@@ -123,17 +148,18 @@ export default function Home() {
         <button id="startBtn" onClick={startAR}>
           START
         </button>
+
         <div id="iframeControls">
           <button id="expandBtn" onClick={toggleFullscreen}>
-            FS
+            <div id="expandImg"></div>
           </button>
           <button id="stopBtn" onClick={stopAR}>
-            STOP
+            <div id="stopImg"></div>
           </button>
         </div>
         <iframe
           id="my-iframe"
-          allow="camera;microphone;gyroscope;accelerometer;"
+          allow="camera;microphone;gyroscope;accelerometer;xr-spatial-tracking;"
         ></iframe>
       </div>
       <div className="content">
