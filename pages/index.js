@@ -2,111 +2,162 @@ import { useEffect } from "react";
 import Head from "next/head";
 
 export default function Home() {
-  const IFRAME_ID = "my-iframe";
+  // iFrame Element
+  const IFRAME_ID = "iframe-4h";
+
+  // FullScreen State
+  let FULLSCREEN = false;
+
+  // IFRAME SOURCE
+  const IFRAME_URL = "https://d2upca0600ogrl.cloudfront.net/";
+
+  // CSS References
+  const HIDE = "hide";
+  const SHOW = "show";
   const CONTROLS_ID = "iframeControls";
   const START_BTN_ID = "startBtn";
-  const INNER_FRAME_URL = "https://d2upca0600ogrl.cloudfront.net/";
   const STOP_BTN_ID = "stopBtn";
-  const EXPAND_BTN_ID = "expandBtn";
+  const FULLSCREEN_BTN = "fullscreenBtn";
   const FULLSCREEN_IFRAME_CLASS = "fullscreen-iframe";
   const FULLSCREEN_CONTROLS_CLASS = "fullscreen-iframeControls";
-  const FULLSCREEN_EXPAND_BTN_CLASS = "fullscreen-btn";
-  const FULLSCREEN_STOP_BTN_CLASS = "hidden";
-  const FULLSCREEN_SHOW_BTN_CLASS = "shown";
+  const FULLSCREEN_ICON = "fullscreen-icon";
+  const FULLSCREEN_COLLAPSE = "fullscreenImgCollapse";
 
+  // Create startAR function to register the XRIFrame:
+  const startAR = () => {
+    // Register Iframe
+    window.XRIFrame.registerXRIFrame(IFRAME_ID);
+
+    // Set Iframe Source
+    const iframe = document.getElementById(IFRAME_ID);
+    iframe.setAttribute("src", IFRAME_URL);
+
+    // Below are examples simply toggling the css "display"
+    // properties between "block" and "none", but any logic
+    // or animations can be triggered on startAR for:
+    // - Remove start button from DOM
+    // - Add AR stop button in DOM
+    // - Add AR fullscreen toggle button in DOM
+
+    // Toggle startBtn visibility
+    const startBtn = document.getElementById(START_BTN_ID);
+    startBtn.classList.toggle(HIDE);
+
+    // Toggle stopBtn visibility
+    const stopBtn = document.getElementById(STOP_BTN_ID);
+    stopBtn.classList.toggle(SHOW);
+
+    // Toggle fullscreenBtn visibility
+    const fullscrenBtn = document.getElementById(FULLSCREEN_BTN);
+    fullscrenBtn.classList.toggle(SHOW);
+  };
+
+  const stopAR = () => {
+    // Deregister Iframe
+    window.XRIFrame.deregisterXRIFrame();
+
+    // Set iFrame Source back to empty string
+    const iframe = document.getElementById(IFRAME_ID);
+    iframe.setAttribute("src", "");
+
+    // Below are examples simply toggling the css "display"
+    // properties between "block" and "none", but any logic
+    // or animations can be triggered on stopAR for:
+    // - Add back in start button in DOM
+    // - Remove AR stop button from DOM
+    // - Remove AR fullscreen toggle button from DOM
+
+    // Toggle startBtn visibility
+    const startBtn = document.getElementById(START_BTN_ID);
+    startBtn.classList.toggle(HIDE);
+
+    // Toggle stopBtn visibility
+    const stopBtn = document.getElementById(STOP_BTN_ID);
+    stopBtn.classList.toggle(SHOW);
+
+    // Toggle fullscreenBtn visibility
+    const fullscrenBtn = document.getElementById(FULLSCREEN_BTN);
+    fullscrenBtn.classList.toggle(SHOW);
+
+    // If we close while in fullscreen mode
+    if (FULLSCREEN) {
+      FULLSCREEN = false;
+
+      // Toggle iFrame size back to inline size
+      const iframe = document.getElementById(IFRAME_ID);
+      iframe.classList.toggle(FULLSCREEN_IFRAME_CLASS);
+
+      // Toggle controls position back to inline size
+      const controls = document.getElementById(CONTROLS_ID);
+      controls.classList.toggle(FULLSCREEN_CONTROLS_CLASS);
+
+      // Toggle fullscreen icon back to expand
+      const fullscreenIcon = document.getElementById(FULLSCREEN_ICON);
+      fullscreenIcon.classList.toggle(FULLSCREEN_COLLAPSE);
+    }
+  };
+
+  // Handles fullscreen button behavior
+  const toggleFullscreen = () => {
+    // Set full screen state based on current full screen state
+    if (!FULLSCREEN) {
+      FULLSCREEN = true;
+    } else {
+      FULLSCREEN = false;
+    }
+
+    // Toggle iFrame size
+    const iframe = document.getElementById(IFRAME_ID);
+    iframe.classList.toggle(FULLSCREEN_IFRAME_CLASS);
+
+    // Toggle controls  size
+    const controls = document.getElementById(CONTROLS_ID);
+    controls.classList.toggle(FULLSCREEN_CONTROLS_CLASS);
+
+    // Toggle fullscreen icon
+    const fullscreenIcon = document.getElementById(FULLSCREEN_ICON);
+    fullscreenIcon.classList.toggle(FULLSCREEN_COLLAPSE);
+  };
+
+  // Create createObserver function to watch if user scrolls past
+  // iFrame in either direction
   const createObserver = () => {
+    // Camera active state
     let cameraActive;
+
+    // Create handleIntersect function to check cameraActive state
+    // when Intersection observer threshold is past
     const handleIntersect = (entries, observer) => {
       entries.forEach((entry) => {
+        // If past intersecting point stop AR and deactivate camera
         if (cameraActive && !entry.isIntersecting) {
           stopAR();
           cameraActive = false;
         }
       });
     };
+
+    // Add listener to listen for accepted camera message from inner iFrame
     window.addEventListener("message", (event) => {
       if (event.data === "acceptedCamera") {
         cameraActive = true;
       }
     });
+
+    // Set Intersection Observer threshold in options
     const options = { threshold: 0.2 };
+
+    // Instantiate an Instersection observer to watch the iFrame element
+    // and trigger handleIntersect function when threshold is past
     new IntersectionObserver(handleIntersect, options).observe(
       document.getElementById(IFRAME_ID)
     );
   };
 
+  // Create global listener to invoke createOberver fuction on load
   useEffect(() => {
-    const onLoad = () => {
-      createObserver();
-    };
-    window.addEventListener("load", onLoad, false);
+    window.addEventListener("load", createObserver, false);
   }, []);
-
-  // Handles fullscreen button behavior
-  const toggleFullscreen = () => {
-    document
-      .getElementById(IFRAME_ID)
-      .classList.toggle(FULLSCREEN_IFRAME_CLASS);
-    document
-      .getElementById(CONTROLS_ID)
-      .classList.toggle(FULLSCREEN_CONTROLS_CLASS);
-    document
-      .getElementById(EXPAND_BTN_ID)
-      .classList.toggle(FULLSCREEN_EXPAND_BTN_CLASS);
-    document
-      .getElementById(STOP_BTN_ID)
-      .classList.toggle(FULLSCREEN_STOP_BTN_CLASS);
-  };
-
-  const startAR = () => {
-    // registers the XRIFrame by iframe ID
-    window.XRIFrame.registerXRIFrame(IFRAME_ID);
-    const iframe = document.getElementById(IFRAME_ID);
-    const controls = document.getElementById(CONTROLS_ID);
-    const startBtn = document.getElementById(START_BTN_ID);
-    startBtn.classList.add("fade-out");
-    // checks if camera has been accepted in iframe before displaying controls
-    window.addEventListener("message", (event) => {
-      if (event.data !== "acceptedCamera") {
-        return;
-      }
-      controls.style.opacity = 0;
-      const styleCleanup = setTimeout(() => {
-        startBtn.style.display = "none";
-        poweredByLogo.style.display = "none";
-        controls.style.display = "block";
-      }, 300);
-      const uiFadeIn = setTimeout(() => {
-        controls.classList.add("fade-in");
-      }, 800);
-      setTimeout(() => {
-        clearTimeout(styleCleanup);
-        clearTimeout(uiFadeIn);
-      }, 900);
-    });
-    iframe.setAttribute("src", INNER_FRAME_URL);
-  };
-
-  const stopAR = () => {
-    // deregisters the XRIFrame
-    window.XRIFrame.deregisterXRIFrame();
-    // const controls = document.getElementById(CONTROLS_ID);
-    // controls.style.opacity = 1;
-    // controls.classList.remove("fade-in");
-    // controls.classList.add("fade-out");
-    const startBtn = document.getElementById(START_BTN_ID);
-    startBtn.classList.remove("fade-out");
-    startBtn.classList.add("fade-in");
-    startBtn.style.display = "block";
-    document.getElementById(IFRAME_ID).setAttribute("src", "");
-    const styleCleanup = setTimeout(() => {
-      startBtn.style.opacity = 1;
-      startBtn.classList.remove("fade-in");
-    }, 300);
-    setTimeout(() => {
-      clearTimeout(styleCleanup);
-    }, 900);
-  };
 
   return (
     <div className="content">
@@ -121,10 +172,6 @@ export default function Home() {
         <h1>File Size Visualizer - 4H</h1>
 
         <p className="author">Groove Jones</p>
-
-        <p id="date">
-          <br />
-        </p>
 
         <p>
           Officia dolor qui tempor laboris ea. Adipisicing ut laboris veniam
@@ -153,20 +200,19 @@ export default function Home() {
         </p>
       </div>
       <div id="inline-ar">
-        <button id="startBtn" onClick={startAR}>
-          START
-        </button>
-
         <div id="iframeControls">
-          <button id="expandBtn" onClick={toggleFullscreen}>
-            <div id="expandImg"></div>
+          <button id="startBtn" onClick={startAR}>
+            <div id="startImg"></div>
+          </button>
+          <button id="fullscreenBtn" onClick={toggleFullscreen}>
+            <div id="fullscreen-icon" className="fullscreenImgExpand"></div>
           </button>
           <button id="stopBtn" onClick={stopAR}>
             <div id="stopImg"></div>
           </button>
         </div>
         <iframe
-          id="my-iframe"
+          id="iframe-4h"
           allow="camera;microphone;gyroscope;accelerometer;xr-spatial-tracking;"
         ></iframe>
       </div>
