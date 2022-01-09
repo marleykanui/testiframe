@@ -151,7 +151,7 @@ Setting Up 8th Wall Iframe for Outer Website:
 
     ```html
     <iframe
-      id="my-iframe"
+      id="iframe-4h"
       allow="camera;microphone;gyroscope;accelerometer;xr-spatial-tracking;"
     ></iframe>
     ```
@@ -164,13 +164,15 @@ Most Relevent CSS
   border-radius: 10px !important;
 }
 
-.prompt-box-8w {
+.prompt-box-8w-iframe {
+  color: black !important;
   background-color: white !important;
 }
-.prompt-button-8w {
+
+.prompt-button-8w-iframe {
   background-color: grey !important;
 }
-.button-primary-8w {
+.button-primary-8w-iframe {
   background-color: #339966 !important;
 }
 
@@ -180,41 +182,9 @@ it's a gif ofthe volcano in a boiling pot of water)
 */
 #iframe-4h {
   width: 100%;
-  height: 400px;
-  margin: 0 auto;
+  height: 700px;
   border: 0;
   background-image: url("/bgTempImage.jpg");
-  background-size: cover;
-}
-
-/* The start button needs to be given an svg to use */
-#startBtn {
-  background-image: url("/start.svg");
-  width: 50%;
-}
-
-/* The stop button needs to be given an svg to use */
-#stopImg {
-  width: 30px;
-  height: 30px;
-  background-image: url("/stop.svg");
-  background-size: cover;
-}
-
-/* The expand collapse button needs to be given an svgs to use and toggle between via changing 
-class names programatically (or however you wish)
-*/
-.fullscreenImgExpand {
-  width: 30px;
-  height: 30px;
-  background-image: url("/expand.svg");
-  background-size: cover;
-}
-
-.fullscreenImgCollapse {
-  width: 30px;
-  height: 30px;
-  background-image: url("/collapse.svg");
-  background-size: cover;
+  background-size: cover center center;
 }
 ```
