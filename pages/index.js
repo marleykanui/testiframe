@@ -14,6 +14,9 @@ export default function Home() {
   // IFRAME ACTIVE STATE
   let ACTIVE = false;
 
+  // Grab initial window size
+  const height = window.innerHeight;
+
   // CSS References
   const HIDE = "hide";
   const SHOW = "show";
@@ -104,7 +107,7 @@ export default function Home() {
       FULLSCREEN = true;
       html.style.overflow = "hidden";
       body.style.overflow = "hidden";
-      iframeID.style.height = `${window.innerHeight}px`;
+      iframeID.style.height = `${height}px`;
     } else {
       FULLSCREEN = false;
       html.style.overflow = "visible";
