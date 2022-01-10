@@ -147,6 +147,12 @@ a {
   width: 394px;
 }
 
+@media screen and (max-width: 1024px) {
+  .size-collapsed {
+    width: 100vw;
+  }
+}
+
 .size-full {
   position: fixed !important;
   top: 0;
