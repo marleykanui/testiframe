@@ -95,19 +95,17 @@ export default function Home() {
 
   // Handles fullscreen button behavior
   const toggleFullscreen = () => {
+    const body = document.getElementsByTagName("BODY")[0];
+    const html = document.getElementsByTagName("HTML")[0];
     // Set full screen state based on current full screen state
     if (!FULLSCREEN) {
       FULLSCREEN = true;
-      // GRAB BODY
-      const body = document.getElementsByTagName("BODY")[0];
+      html.style.overflow = "hidden";
       body.style.overflow = "hidden";
-      body.style.height = window.innerHeight;
     } else {
       FULLSCREEN = false;
-      // GRAB BODY
-      const body = document.getElementsByTagName("BODY")[0];
+      html.style.overflow = "visible";
       body.style.overflow = "visible";
-      body.style.height = "100%";
     }
 
     // Toggle iFrame size
