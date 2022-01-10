@@ -46,18 +46,12 @@ a {
   width: 394px;
 }
 
-@media screen and (max-width: 1024px) {
-  .inline-ar-size {
-    width: 100vw;
-  }
-}
-
 .fullscreen-inline-ar {
   position: fixed !important;
   top: 0;
   right: 0;
   z-index: 1000;
-  /* width: 100vw; */
+  width: 100vw;
 }
 
 #iframe-4h {
@@ -145,12 +139,6 @@ a {
 
 .size-collapsed {
   width: 394px;
-}
-
-@media screen and (max-width: 1024px) {
-  .size-collapsed {
-    width: 100vw;
-  }
 }
 
 .size-full {
