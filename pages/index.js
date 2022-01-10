@@ -100,17 +100,13 @@ export default function Home() {
   const toggleFullscreen = () => {
     const iframeID = document.getElementById(IFRAME_ID);
     const body = document.getElementsByTagName("BODY")[0];
-    const html = document.getElementsByTagName("HTML")[0];
-    console.log(window.innerHeight);
     // Set full screen state based on current full screen state
     if (!FULLSCREEN) {
       FULLSCREEN = true;
-      html.style.overflow = "hidden";
       body.style.overflow = "hidden";
       iframeID.style.height = `${height}px`;
     } else {
       FULLSCREEN = false;
-      html.style.overflow = "visible";
       body.style.overflow = "visible";
       iframeID.style.height = "700px";
     }
