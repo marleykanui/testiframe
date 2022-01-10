@@ -53,21 +53,21 @@ export default function Home() {
     const iframe = document.getElementById(IFRAME_ID);
     iframe.setAttribute("src", "");
 
-    // Toggle startBtn visibility
-    const startBtn = document.getElementById(START_BTN_ID);
-    startBtn.classList.toggle(HIDE);
-
-    // Toggle stopBtn visibility
-    const stopBtn = document.getElementById(STOP_BTN_ID);
-    stopBtn.classList.toggle(SHOW);
-
-    // Toggle fullscreenBtn visibility
-    const fullscrenBtn = document.getElementById(FULLSCREEN_BTN);
-    fullscrenBtn.classList.toggle(SHOW);
-
     // If we close while in fullscreen mode
     if (FULLSCREEN) {
       FULLSCREEN = false;
+
+      // Toggle startBtn visibility
+      const startBtn = document.getElementById(START_BTN_ID);
+      startBtn.classList.toggle(HIDE);
+
+      // Toggle stopBtn visibility
+      const stopBtn = document.getElementById(STOP_BTN_ID);
+      stopBtn.classList.toggle(SHOW);
+
+      // Toggle fullscreenBtn visibility
+      const fullscrenBtn = document.getElementById(FULLSCREEN_BTN);
+      fullscrenBtn.classList.toggle(SHOW);
 
       const inlineAR = document.getElementById(IFRAME_ID);
       inlineAR.classList.toggle(FULLSCREEN_INLINEAR);
