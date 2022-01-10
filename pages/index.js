@@ -18,6 +18,7 @@ export default function Home() {
   const height = window.innerHeight;
 
   // CSS References
+  const INLINE_AR_CONTAINER = "inline-ar";
   const HIDE = "hide";
   const SHOW = "show";
   const STOP_BTN = "stop-btn";
@@ -98,17 +99,17 @@ export default function Home() {
 
   // Handles fullscreen button behavior
   const toggleFullscreen = () => {
-    const iframeID = document.getElementById(IFRAME_ID);
+    const INLINE_AR = document.getElementById(INLINE_AR_CONTAINER);
     const body = document.getElementsByTagName("BODY")[0];
     // Set full screen state based on current full screen state
     if (!FULLSCREEN) {
       FULLSCREEN = true;
       body.style.overflow = "hidden";
-      iframeID.style.height = `${height}px`;
+      INLINE_AR.style.height = `${height}px`;
     } else {
       FULLSCREEN = false;
       body.style.overflow = "visible";
-      iframeID.style.height = "700px";
+      INLINE_AR.style.height = "700px";
     }
 
     // Toggle iFrame size
