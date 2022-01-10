@@ -76,8 +76,8 @@ export default function Home() {
     if (FULLSCREEN) {
       FULLSCREEN = false;
 
-      const inlineAR = document.getElementById(IFRAME_ID);
-      inlineAR.classList.toggle(FULLSCREEN_INLINE_AR);
+      const iframeID = document.getElementById(IFRAME_ID);
+      iframeID.classList.toggle(FULLSCREEN_INLINE_AR);
 
       // Toggle fullscreen icon back to expand
       const fullscreenIcon = document.getElementById(FULLSCREEN_ICON);
@@ -109,8 +109,8 @@ export default function Home() {
     }
 
     // Toggle iFrame size
-    const inlineAR = document.getElementById(IFRAME_ID);
-    inlineAR.classList.toggle(FULLSCREEN_INLINE_AR);
+    const iframeID = document.getElementById(IFRAME_ID);
+    iframeID.classList.toggle(FULLSCREEN_INLINE_AR);
 
     // Toggle stopFull position
     const stopFull = document.getElementById(STOP_FULL_CONTROLS);
