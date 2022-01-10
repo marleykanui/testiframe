@@ -120,13 +120,18 @@ export default function Home() {
     // Camera active state
     let cameraActive;
 
+    const iframe = document.getElementById(IFRAME_ID);
+
     // Create handleIntersect function to check cameraActive state
     // when Intersection observer threshold is past
     const handleIntersect = (entries, observer) => {
       entries.forEach((entry) => {
         // If past intersecting point stop AR and deactivate camera
         if (cameraActive && !entry.isIntersecting) {
-          stopAR();
+          if (iframe.src !== "") {
+            stopAR();
+          }
+
           cameraActive = false;
         }
       });
@@ -183,11 +188,6 @@ export default function Home() {
           id="iframe-4h"
           allow="camera;microphone;gyroscope;accelerometer;xr-spatial-tracking;"
         ></iframe>
-      </div>
-      <div className="tempButtons">
-        <button onClick={toggleFullscreen}>FS</button>
-        <button onClick={startAR}>S</button>
-        <button onClick={stopAR}>S</button>
       </div>
     </div>
   );
