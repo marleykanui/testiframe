@@ -35,21 +35,22 @@ export default function Home() {
     // Register Iframe
     window.XRIFrame.registerXRIFrame(IFRAME_ID);
 
+    // Set Active to true
     ACTIVE = true;
 
     // Set Iframe Source
     const iframe = document.getElementById(IFRAME_ID);
     iframe.setAttribute("src", IFRAME_URL);
 
-    // Toggle startBtn visibility
+    // Hide start Button
     const startBtn = document.getElementById(START_BTN);
     startBtn.classList.toggle(HIDE);
 
-    // Toggle stop-btn visibility
+    // Show Close Button
     const stopBtn = document.getElementById(STOP_BTN);
     stopBtn.classList.toggle(SHOW);
 
-    // Toggle fullscreen-btn visibility
+    // Show FullScreen button
     const fullscreenBtn = document.getElementById(FULLSCREEN_BTN);
     fullscreenBtn.classList.toggle(SHOW);
   };
@@ -58,72 +59,76 @@ export default function Home() {
     // Deregister Iframe
     window.XRIFrame.deregisterXRIFrame();
 
+    // Set Active to false
     ACTIVE = false;
 
     // Set iFrame Source back to empty string
     const iframe = document.getElementById(IFRAME_ID);
     iframe.setAttribute("src", "");
 
-    // Toggle startBtn visibility
+    // Show start button
     const startBtn = document.getElementById(START_BTN);
     startBtn.classList.toggle(HIDE);
 
-    // Toggle stop-btn visibility
+    // Hide stop button
     const stopBtn = document.getElementById(STOP_BTN);
     stopBtn.classList.toggle(SHOW);
 
-    // Toggle fullscreen-btn visibility
+    // Hide Full screen button
     const fullscreenBtn = document.getElementById(FULLSCREEN_BTN);
     fullscreenBtn.classList.toggle(SHOW);
 
-    // If we close while in fullscreen mode
-    if (FULLSCREEN) {
-      // Set Full Screen False
-      FULLSCREEN = false;
+    // // If we close while in fullscreen mode
+    // if (FULLSCREEN) {
+    //   // Set Full Screen False
+    //   FULLSCREEN = false;
 
-      const INLINE_AR = document.getElementById(INLINE_AR_CONTAINER);
-      INLINE_AR.style.height = "700px";
+    //   const INLINE_AR = document.getElementById(INLINE_AR_CONTAINER);
+    //   INLINE_AR.style.height = "700px";
 
-      const iframeID = document.getElementById(IFRAME_ID);
-      iframeID.classList.toggle(FULLSCREEN_INLINE_AR);
+    //   const iframeID = document.getElementById(IFRAME_ID);
+    //   iframeID.classList.toggle(FULLSCREEN_INLINE_AR);
 
-      // Toggle fullscreen icon back to expand
-      const fullscreenIcon = document.getElementById(FULLSCREEN_ICON);
-      fullscreenIcon.classList.toggle(FULLSCREEN_COLLAPSE);
+    //   // Toggle fullscreen icon back to expand
+    //   const fullscreenIcon = document.getElementById(FULLSCREEN_ICON);
+    //   fullscreenIcon.classList.toggle(FULLSCREEN_COLLAPSE);
 
-      // Toggle stopFull position
-      const stopFull = document.getElementById(STOP_FULL_CONTROLS);
-      stopFull.classList.toggle(STOP_FULL_SIZE);
+    //   // Toggle stopFull position
+    //   const stopFull = document.getElementById(STOP_FULL_CONTROLS);
+    //   stopFull.classList.toggle(STOP_FULL_SIZE);
 
-      // GRAB BODY
-      const body = document.getElementsByTagName("BODY")[0];
-      body.style.overflow = "visible";
-    }
+    //   // GRAB BODY
+    //   const body = document.getElementsByTagName("BODY")[0];
+    //   body.style.overflow = "visible";
+    // }
   };
 
   // Handles fullscreen button behavior
   const toggleFullscreen = () => {
     const INLINE_AR = document.getElementById(INLINE_AR_CONTAINER);
+    const stopBtn = document.getElementById(STOP_BTN);
     const body = document.getElementsByTagName("BODY")[0];
     // Set full screen state based on current full screen state
     if (!FULLSCREEN) {
       FULLSCREEN = true;
       body.style.overflow = "hidden";
       INLINE_AR.style.height = `${height}px`;
+      stopBtn.style.visibility = "hidden";
     } else {
       FULLSCREEN = false;
       body.style.overflow = "visible";
       INLINE_AR.style.height = "700px";
+      stopBtn.style.visibility = "visible";
     }
 
     // Toggle iFrame size
     INLINE_AR.classList.toggle(FULLSCREEN_INLINE_AR);
 
-    // Toggle stopFull position
+    // Change
     const stopFull = document.getElementById(STOP_FULL_CONTROLS);
     stopFull.classList.toggle(STOP_FULL_SIZE);
 
-    // Toggle fullscreen icon
+    // Change Full screen icon
     const fullscreenIcon = document.getElementById(FULLSCREEN_ICON);
     fullscreenIcon.classList.toggle(FULLSCREEN_COLLAPSE);
   };
