@@ -80,6 +80,9 @@ export default function Home() {
     if (FULLSCREEN) {
       FULLSCREEN = false;
 
+      const INLINE_AR = document.getElementById(INLINE_AR_CONTAINER);
+      INLINE_AR.style.height = "700px";
+
       const iframeID = document.getElementById(IFRAME_ID);
       iframeID.classList.toggle(FULLSCREEN_INLINE_AR);
 
