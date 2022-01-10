@@ -1,28 +1,3 @@
-/* Base Styling */
-html,
-body {
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-/* Page Container */
-#container {
-  width: 100vw;
-  height: 300vh;
-  display: flex;
-  justify-content: center;
-  background-color: black;
-}
-
 /* Prompt Box Styling */
 .prompt-button-8w-iframe {
   border-radius: 10px !important;

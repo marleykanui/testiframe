@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <body>
+<!-- Copy Everything from here -->
+        <div id="inline-ar" className="inline-ar-size">
+            <div id="iframeControls">
+            <div id="start-btn-container" className="inline-ar-size">
+                <button id="start-btn" onClick="startAR()">
+                <div id="start-img"></div>
+                </button>
+            </div>
+            <div id="stop-full" className="size-collapsed">
+                <button id="stop-btn" onClick="stopAR()">
+                <div id="stop-img"></div>
+                </button>
+                <button id="fullscreen-btn" onClick="toggleFullscreen()">
+                <div id="fullscreen-icon" className="fullscreen-img-expand"></div>
+                </button>
+            </div>
+            </div>
+            <iframe
+            id="iframe-4h"
+            allow="camera;microphone;gyroscope;accelerometer;xr-spatial-tracking;"
+            ></iframe>
+        </div>
+<!-- to here -->
+    </body>
+</html>
