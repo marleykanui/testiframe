@@ -15,7 +15,7 @@ export default function Home() {
   let ACTIVE = false;
 
   // Grab initial window size
-  const height = window.innerHeight;
+  let height;
 
   // CSS References
   const INLINE_AR_CONTAINER = "inline-ar";
@@ -151,8 +151,13 @@ export default function Home() {
     );
   };
 
+  const initHeightAndObserver = () => {
+    createObserver();
+    height = window.innerHeight;
+  };
+
   useEffect(() => {
-    window.addEventListener("load", createObserver, false);
+    window.addEventListener("load", initHeightAndObserver, false);
   }, []);
 
   return (
