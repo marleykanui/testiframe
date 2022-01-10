@@ -2,26 +2,26 @@ import { useEffect } from "react";
 import Head from "next/head";
 
 export default function Home() {
+  // IFRAME SOURCE
+  const IFRAME_URL = "https://d2upca0600ogrl.cloudfront.net/";
+
   // iFrame Element
   const IFRAME_ID = "iframe-4h";
 
   // FullScreen State
   let FULLSCREEN = false;
 
-  // IFRAME SOURCE
-  const IFRAME_URL = "https://d2upca0600ogrl.cloudfront.net/";
-
   // CSS References
   const HIDE = "hide";
   const SHOW = "show";
-  const STOPFULL_ID = "stop-full";
-  const START_BTN_ID = "start-btn-container";
-  const STOP_BTN_ID = "stopBtn";
-  const FULLSCREEN_BTN = "fullscreenBtn";
-  const FULLSCREEN_INLINEAR = "fullscreen-inline-ar";
-  const FULLSCREEN_CONTROLS_CLASS = "size-full";
+  const STOP_BTN = "stop-btn";
+  const STOP_FULL_SIZE = "size-full";
+  const STOP_FULL_CONTROLS = "stop-full";
+  const START_BTN = "start-btn-container";
+  const FULLSCREEN_BTN = "fullscreen-btn";
   const FULLSCREEN_ICON = "fullscreen-icon";
-  const FULLSCREEN_COLLAPSE = "fullscreenImgCollapse";
+  const FULLSCREEN_INLINE_AR = "fullscreen-inline-ar";
+  const FULLSCREEN_COLLAPSE = "fullscreen-img-collapse";
 
   // Create startAR function to register the XRIFrame:
   const startAR = () => {
@@ -33,16 +33,16 @@ export default function Home() {
     iframe.setAttribute("src", IFRAME_URL);
 
     // Toggle startBtn visibility
-    const startBtn = document.getElementById(START_BTN_ID);
+    const startBtn = document.getElementById(START_BTN);
     startBtn.classList.toggle(HIDE);
 
-    // Toggle stopBtn visibility
-    const stopBtn = document.getElementById(STOP_BTN_ID);
+    // Toggle stop-btn visibility
+    const stopBtn = document.getElementById(STOP_BTN);
     stopBtn.classList.toggle(SHOW);
 
-    // Toggle fullscreenBtn visibility
-    const fullscrenBtn = document.getElementById(FULLSCREEN_BTN);
-    fullscrenBtn.classList.toggle(SHOW);
+    // Toggle fullscreen-btn visibility
+    const fullscreenBtn = document.getElementById(FULLSCREEN_BTN);
+    fullscreenBtn.classList.toggle(SHOW);
   };
 
   const stopAR = () => {
@@ -54,31 +54,31 @@ export default function Home() {
     iframe.setAttribute("src", "");
 
     // Toggle startBtn visibility
-    const startBtn = document.getElementById(START_BTN_ID);
+    const startBtn = document.getElementById(START_BTN);
     startBtn.classList.toggle(HIDE);
 
-    // Toggle stopBtn visibility
-    const stopBtn = document.getElementById(STOP_BTN_ID);
+    // Toggle stop-btn visibility
+    const stopBtn = document.getElementById(STOP_BTN);
     stopBtn.classList.toggle(SHOW);
 
-    // Toggle fullscreenBtn visibility
-    const fullscrenBtn = document.getElementById(FULLSCREEN_BTN);
-    fullscrenBtn.classList.toggle(SHOW);
+    // Toggle fullscreen-btn visibility
+    const fullscreenBtn = document.getElementById(FULLSCREEN_BTN);
+    fullscreenBtn.classList.toggle(SHOW);
 
     // If we close while in fullscreen mode
     if (FULLSCREEN) {
       FULLSCREEN = false;
 
       const inlineAR = document.getElementById(IFRAME_ID);
-      inlineAR.classList.toggle(FULLSCREEN_INLINEAR);
+      inlineAR.classList.toggle(FULLSCREEN_INLINE_AR);
 
       // Toggle fullscreen icon back to expand
       const fullscreenIcon = document.getElementById(FULLSCREEN_ICON);
       fullscreenIcon.classList.toggle(FULLSCREEN_COLLAPSE);
 
       // Toggle stopFull position
-      const stopFull = document.getElementById(STOPFULL_ID);
-      stopFull.classList.toggle(FULLSCREEN_CONTROLS_CLASS);
+      const stopFull = document.getElementById(STOP_FULL_CONTROLS);
+      stopFull.classList.toggle(STOP_FULL_SIZE);
 
       // GRAB BODY
       const body = document.getElementsByTagName("BODY")[0];
@@ -94,20 +94,22 @@ export default function Home() {
       // GRAB BODY
       const body = document.getElementsByTagName("BODY")[0];
       body.style.overflow = "hidden";
+      body.style.height = window.innerHeight;
     } else {
       FULLSCREEN = false;
       // GRAB BODY
       const body = document.getElementsByTagName("BODY")[0];
       body.style.overflow = "visible";
+      body.style.height = "100%";
     }
 
     // Toggle iFrame size
     const inlineAR = document.getElementById(IFRAME_ID);
-    inlineAR.classList.toggle(FULLSCREEN_INLINEAR);
+    inlineAR.classList.toggle(FULLSCREEN_INLINE_AR);
 
     // Toggle stopFull position
-    const stopFull = document.getElementById(STOPFULL_ID);
-    stopFull.classList.toggle(FULLSCREEN_CONTROLS_CLASS);
+    const stopFull = document.getElementById(STOP_FULL_CONTROLS);
+    stopFull.classList.toggle(STOP_FULL_SIZE);
 
     // Toggle fullscreen icon
     const fullscreenIcon = document.getElementById(FULLSCREEN_ICON);
@@ -120,18 +122,13 @@ export default function Home() {
     // Camera active state
     let cameraActive;
 
-    const iframe = document.getElementById(IFRAME_ID);
-
     // Create handleIntersect function to check cameraActive state
     // when Intersection observer threshold is past
     const handleIntersect = (entries, observer) => {
       entries.forEach((entry) => {
         // If past intersecting point stop AR and deactivate camera
         if (cameraActive && !entry.isIntersecting) {
-          if (iframe.src !== "") {
-            stopAR();
-          }
-
+          stopAR();
           cameraActive = false;
         }
       });
@@ -171,16 +168,16 @@ export default function Home() {
       <div id="inline-ar" className="inline-ar-size">
         <div id="iframeControls">
           <div id="start-btn-container" className="inline-ar-size">
-            <button id="startBtn" onClick={startAR}>
-              <div id="startImg"></div>
+            <button id="start-btn" onClick={startAR}>
+              <div id="start-img"></div>
             </button>
           </div>
           <div id="stop-full" className="size-collapsed">
-            <button id="stopBtn" onClick={stopAR}>
-              <div id="stopImg"></div>
+            <button id="stop-btn" onClick={stopAR}>
+              <div id="stop-img"></div>
             </button>
-            <button id="fullscreenBtn" onClick={toggleFullscreen}>
-              <div id="fullscreen-icon" className="fullscreenImgExpand"></div>
+            <button id="fullscreen-btn" onClick={toggleFullscreen}>
+              <div id="fullscreen-icon" className="fullscreen-img-expand"></div>
             </button>
           </div>
         </div>
