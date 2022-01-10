@@ -78,6 +78,7 @@ export default function Home() {
 
     // If we close while in fullscreen mode
     if (FULLSCREEN) {
+      // Set Full Screen False
       FULLSCREEN = false;
 
       const INLINE_AR = document.getElementById(INLINE_AR_CONTAINER);
@@ -116,7 +117,7 @@ export default function Home() {
     }
 
     // Toggle iFrame size
-    iframeID.classList.toggle(FULLSCREEN_INLINE_AR);
+    INLINE_AR.classList.toggle(FULLSCREEN_INLINE_AR);
 
     // Toggle stopFull position
     const stopFull = document.getElementById(STOP_FULL_CONTROLS);
