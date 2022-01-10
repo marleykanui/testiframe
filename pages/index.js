@@ -122,13 +122,17 @@ export default function Home() {
     // Camera active state
     let cameraActive;
 
+    const iframe = document.getElementById(IFRAME_ID);
+
     // Create handleIntersect function to check cameraActive state
     // when Intersection observer threshold is past
     const handleIntersect = (entries, observer) => {
       entries.forEach((entry) => {
         // If past intersecting point stop AR and deactivate camera
         if (cameraActive && !entry.isIntersecting) {
-          stopAR();
+          if (iframe.src !== "") {
+            stopAR();
+          }
           cameraActive = false;
         }
       });
