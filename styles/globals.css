@@ -16,16 +16,11 @@ a {
 
 /* Page Container */
 #container {
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 300vh;
   display: flex;
   justify-content: center;
-  /* align-items: center; */
   background-color: black;
-  overflow: scroll;
 }
 
 /* Prompt Box Styling */

@@ -10,7 +10,6 @@ export default function Home() {
 
   // IFRAME SOURCE
   const IFRAME_URL = "https://d2upca0600ogrl.cloudfront.net/";
-  // const IFRAME_URL = "https://192.168.86.158:8080";
 
   // CSS References
   const HIDE = "hide";
