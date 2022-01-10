@@ -11,6 +11,9 @@ export default function Home() {
   // FullScreen State
   let FULLSCREEN = false;
 
+  // IFRAME ACTIVE STATE
+  let ACTIVE = false;
+
   // CSS References
   const HIDE = "hide";
   const SHOW = "show";
@@ -27,6 +30,8 @@ export default function Home() {
   const startAR = () => {
     // Register Iframe
     window.XRIFrame.registerXRIFrame(IFRAME_ID);
+
+    ACTIVE = true;
 
     // Set Iframe Source
     const iframe = document.getElementById(IFRAME_ID);
@@ -48,6 +53,8 @@ export default function Home() {
   const stopAR = () => {
     // Deregister Iframe
     window.XRIFrame.deregisterXRIFrame();
+
+    ACTIVE = false;
 
     // Set iFrame Source back to empty string
     const iframe = document.getElementById(IFRAME_ID);
@@ -116,21 +123,13 @@ export default function Home() {
     fullscreenIcon.classList.toggle(FULLSCREEN_COLLAPSE);
   };
 
-  // Create createObserver function to watch if user scrolls past
-  // iFrame in either direction
   const createObserver = () => {
-    // Camera active state
     let cameraActive;
 
-    const iframe = document.getElementById(IFRAME_ID);
-
-    // Create handleIntersect function to check cameraActive state
-    // when Intersection observer threshold is past
     const handleIntersect = (entries, observer) => {
       entries.forEach((entry) => {
-        // If past intersecting point stop AR and deactivate camera
         if (cameraActive && !entry.isIntersecting) {
-          if (iframe.src !== "") {
+          if (ACTIVE) {
             stopAR();
           }
           cameraActive = false;
@@ -138,24 +137,19 @@ export default function Home() {
       });
     };
 
-    // Add listener to listen for accepted camera message from inner iFrame
     window.addEventListener("message", (event) => {
       if (event.data === "acceptedCamera") {
         cameraActive = true;
       }
     });
 
-    // Set Intersection Observer threshold in options
     const options = { threshold: 0.2 };
 
-    // Instantiate an Instersection observer to watch the iFrame element
-    // and trigger handleIntersect function when threshold is past
     new IntersectionObserver(handleIntersect, options).observe(
       document.getElementById(IFRAME_ID)
     );
   };
 
-  // Create global listener to invoke createOberver fuction on load
   useEffect(() => {
     window.addEventListener("load", createObserver, false);
   }, []);
