@@ -77,30 +77,6 @@ export default function Home() {
     // Hide Full screen button
     const fullscreenBtn = document.getElementById(FULLSCREEN_BTN);
     fullscreenBtn.classList.toggle(SHOW);
-
-    // // If we close while in fullscreen mode
-    // if (FULLSCREEN) {
-    //   // Set Full Screen False
-    //   FULLSCREEN = false;
-
-    //   const INLINE_AR = document.getElementById(INLINE_AR_CONTAINER);
-    //   INLINE_AR.style.height = "700px";
-
-    //   const iframeID = document.getElementById(IFRAME_ID);
-    //   iframeID.classList.toggle(FULLSCREEN_INLINE_AR);
-
-    //   // Toggle fullscreen icon back to expand
-    //   const fullscreenIcon = document.getElementById(FULLSCREEN_ICON);
-    //   fullscreenIcon.classList.toggle(FULLSCREEN_COLLAPSE);
-
-    //   // Toggle stopFull position
-    //   const stopFull = document.getElementById(STOP_FULL_CONTROLS);
-    //   stopFull.classList.toggle(STOP_FULL_SIZE);
-
-    //   // GRAB BODY
-    //   const body = document.getElementsByTagName("BODY")[0];
-    //   body.style.overflow = "visible";
-    // }
   };
 
   // Handles fullscreen button behavior
@@ -113,12 +89,12 @@ export default function Home() {
       FULLSCREEN = true;
       body.style.overflow = "hidden";
       INLINE_AR.style.height = `${height}px`;
-      stopBtn.style.visibility = "hidden";
+      // stopBtn.style.visibility = "hidden";
     } else {
       FULLSCREEN = false;
       body.style.overflow = "visible";
       INLINE_AR.style.height = "700px";
-      stopBtn.style.visibility = "visible";
+      // stopBtn.style.visibility = "visible";
     }
 
     // Toggle iFrame size

@@ -50,7 +50,7 @@ a {
   position: fixed !important;
   top: 0;
   right: 0;
-  width: 100vw;
+  /* width: 100vw; */
 }
 
 #iframe-4h {
