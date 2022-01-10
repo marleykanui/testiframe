@@ -89,12 +89,12 @@ export default function Home() {
       FULLSCREEN = true;
       body.style.overflow = "hidden";
       INLINE_AR.style.height = `${height}px`;
-      // stopBtn.style.visibility = "hidden";
+      stopBtn.style.visibility = "hidden";
     } else {
       FULLSCREEN = false;
       body.style.overflow = "visible";
       INLINE_AR.style.height = "700px";
-      // stopBtn.style.visibility = "visible";
+      stopBtn.style.visibility = "visible";
     }
 
     // Toggle iFrame size
