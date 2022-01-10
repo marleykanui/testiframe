@@ -79,6 +79,10 @@ export default function Home() {
       // Toggle stopFull position
       const stopFull = document.getElementById(STOPFULL_ID);
       stopFull.classList.toggle(FULLSCREEN_CONTROLS_CLASS);
+
+      // GRAB BODY
+      const body = document.getElementsByTagName("BODY")[0];
+      body.style.overflow = "visible";
     }
   };
 
@@ -87,8 +91,14 @@ export default function Home() {
     // Set full screen state based on current full screen state
     if (!FULLSCREEN) {
       FULLSCREEN = true;
+      // GRAB BODY
+      const body = document.getElementsByTagName("BODY")[0];
+      body.style.overflow = "hidden";
     } else {
       FULLSCREEN = false;
+      // GRAB BODY
+      const body = document.getElementsByTagName("BODY")[0];
+      body.style.overflow = "visible";
     }
 
     // Toggle iFrame size
